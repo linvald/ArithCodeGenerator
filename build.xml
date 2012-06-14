@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<project name="JTB_ARIT" default="compile.generated" basedir=".">
+
+<property name="jtb.task" 		value="./JavaCC_3.2_JTB_AntTasks.jar"/>
+<property name="jtb.dir"  		value="E:/PROGRAMS/"/>
+<property name="jj.file"  		value="Arith.jj"/>
+<property name="generateddir" 	value="javacc_generated"/>
+<property name="javacc_home" 	value="E:/PROGRAMS/javacc-4.0/"/>
+
+
+<taskdef name="jtb" classname="dk.linvald.ant.JTBAntTask"  classpath="${jtb.task}"/>
+<taskdef name="new_javacc" classname="dk.linvald.ant.JavaCCNewTask"  classpath="${jtb.task}"/>
+  
+  <target name="init"> 
+  		<mkdir dir="${generateddir}"/>
+  </target>	
+
+  <target name="jtb" depends="init">
+    <jtb target="${jj.file}" jtbhome="${jtb.dir}"/>
+  </target>
+   
+  <target name="javacc" depends="jtb">
+  	<new_javacc target="jtb.out.jj" outputdirectory="${generateddir}" javacchome="${javacc_home}" /> 
+  </target>
+  
+  <target name="compile.generated" depends="javacc">
+  	<javac srcdir="."> 	
+  </javac>
+  
+  </target>
+  
+</project>
+
